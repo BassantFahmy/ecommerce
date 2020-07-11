@@ -46,25 +46,7 @@ namespace ecommerce.Controllers
             var CreatedUser =await _repo.Register(UserToCreate, userForRegisterDto.Password);
             return StatusCode(201);
         }
-      /*  public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
-        {
-            userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
-
-            if (await _repo.UserExists(userForRegisterDto.Username))
-                return BadRequest("Username already exists");
-
-            var userToCreate = _mapper.Map<User>(userForRegisterDto);
-
-            var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
-
-            var userToReturn = _mapper.Map<UserForDetailedDto>(createdUser);
-
-            return CreatedAtRoute("GetUser", new
-            {
-                controller = "Users",
-                id = createdUser.Id
-            }, userToReturn);
-        }*/
+   
         [HttpPost("Login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
@@ -87,10 +69,13 @@ namespace ecommerce.Controllers
             };
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
+            var user = _mapper.Map<UserForListDto>(userFromRepo);
             return Ok(new
             {
-                token = tokenHandler.WriteToken(token)
+                token = tokenHandler.WriteToken(token),
+                user
             });
+           
         }
 
     }
