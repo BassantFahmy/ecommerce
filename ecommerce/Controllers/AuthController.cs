@@ -37,16 +37,18 @@ namespace ecommerce.Controllers
             userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
             if (await _repo.UserExists(userForRegisterDto.Username))
                 return BadRequest("Username already exists");
-            /* var UserToCreate = new User
+            
+            var UserToCreate = _mapper.Map<User>(userForRegisterDto);
+            var CreatedUser = await _repo.Register(UserToCreate, userForRegisterDto.Password);
+             var userForLoginDto = new UserForLoginDto
              {
                  Username = userForRegisterDto.Username,
-                 Gender = userForRegisterDto.Gender
-             };*/
-            var UserToCreate = _mapper.Map<User>(userForRegisterDto);
-            var CreatedUser =await _repo.Register(UserToCreate, userForRegisterDto.Password);
-            return StatusCode(201);
+                 Password = userForRegisterDto.Password
+             };
+            return await Login(userForLoginDto);
+           
         }
-   
+
         [HttpPost("Login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
@@ -73,7 +75,8 @@ namespace ecommerce.Controllers
             return Ok(new
             {
                 token = tokenHandler.WriteToken(token),
-                user
+                user,
+                StatusCode = 200
             });
            
         }

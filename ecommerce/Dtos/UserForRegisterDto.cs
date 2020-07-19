@@ -28,6 +28,7 @@ namespace ecommerce.Dtos
         public string Country { get; set; }
         public DateTime Created { get; set; }
         public DateTime LastActive { get; set; }
+        public string Phone { get; set; }
         public UserForRegisterDto()
         {
             Created = DateTime.Now;
