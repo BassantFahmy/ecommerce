@@ -25,7 +25,7 @@ namespace ecommerce.Controllers
             _mapper = mapper;
         }
         // GET: api/Users
-        [HttpGet]
+        [HttpGet(Name = "GetUsers")]
         public async Task<IActionResult> Get()
         {
 
@@ -35,7 +35,7 @@ namespace ecommerce.Controllers
         }
 
         // GET: api/Users/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}", Name = "GetUser")]
         public async Task<IActionResult> GetUser(int id)
         {
             var user = await _repo.GetUser(id);

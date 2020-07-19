@@ -21,11 +21,9 @@ namespace ecommerce.Dtos
         [Required]
         public string Email { get; set; }
         public string Address { get; set; }
-        [Required]
         public string City { get; set; }
 
-        [Required]
-        public string Country { get; set; }
+        public int CountryId { get; set; }
         public DateTime Created { get; set; }
         public DateTime LastActive { get; set; }
         public string Phone { get; set; }

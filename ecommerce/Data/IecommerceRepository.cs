@@ -13,5 +13,9 @@ namespace ecommerce.Data
         Task<bool> SaveAll();
         Task<IEnumerable<User>> GetUsers();
         Task<User> GetUser(int id);
+        Task<IEnumerable<Country>> GetCountries();
+        Task<Country> GetCountry(int id);
+        Task<bool> CountryExists(string country);
+
     }
 }
